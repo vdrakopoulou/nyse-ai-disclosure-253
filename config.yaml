@@ -1,0 +1,74 @@
+project:
+  name: finance_ai_public_disclosure_replication
+  random_seed: 20260428
+paths:
+  raw:
+    issuer_screening: data/raw/nyse_financial_issuer_screening.xlsx
+    employment_materials: data/raw/nyse_ai_python_emloyment_materials_253.csv
+    direct_company_sentences: data/raw/nyse_253_direct_company_ai_sentences.xlsx
+    second_coder_direct: data/raw/nyse_253_ai_python_evidence_2nd_coder.xlsx
+    second_coder_filing: data/raw/nyse_ai_filing_evidence_audit_2nd_coder.xlsx
+  outputs: outputs
+  logs: logs
+sheets:
+  issuer_screening_screened: Screened_548
+  issuer_screening_included: Included_253
+  issuer_screening_excluded: Excluded_295
+  issuer_screening_duplicates: Exact_Duplicate_Rows
+  direct_primary_all_status: All_253_Status
+  direct_summary: Summary
+  direct_readme: README
+  direct_second_verified: Verified Direct Evidence
+  direct_second_unresolved: Unresolved
+  filing_second_verified: Verified_Evidence
+  filing_second_unresolved: Unresolved_Issuers
+analysis:
+  python_regex: '(?i)\bpython\b'
+  ai_regex: '(?i)(artificial intelligence|\bai\b|machine learning|generative ai|genai|chatgpt|large language model|\bllm\b|automation|automatic learning|modelo|inteligencia artificial|aprendizaje automatico|aprendizaje automático)'
+  oci_outcome_regex: '(?i)(performance|efficiency|productivity|risk|fraud|claims|underwriting|accuracy|speed|reduction|improvement|savings|cost|loss ratio|return|revenue|customer experience|interactions)'
+  oci_quant_regex: '(?i)(\b\d+(?:\.\d+)?\s?(?:%|percent|basis points?|bps|x|times|seconds?|minutes?|hours?|days?|weeks?|months?|years?)\b|\$\s?\d+(?:\.\d+)?\s?(?:million|billion|trillion)?\b)'
+  oci_claim_verb_regex: '(?i)(accelerat|improv|reduc|boost|increase|decrease|cut|lower|raise|save|streamlin|enhanc|from\s+\d+(?:\.\d+)?\s?\w+\s+to\s+\d+(?:\.\d+)?\s?\w+)'
+  library_context_regex: '(?i)(python|library|libraries|framework|sdk|client|api|package|packages|tool|tools|development|developer|engineering|engineer|machine learning|visualiz|analytics|data|model|application)'
+  employment_channel_map:
+    employment material: employment_materials
+    official issuer publication: corporate_communications
+    product / technology documentation: technical_documentation
+    product documentation: technical_documentation
+    developer documentation: technical_documentation
+    developer / technology documentation: technical_documentation
+  direct_channel_rules:
+    - label: filings_formal_reports
+      pattern: '(?i)(annual report|form 10-k|form 20-f|form 10-q|integrated report|corporate responsibility report|governance report|annual review|official report|corporate report)'
+    - label: investor_materials
+      pattern: '(?i)(investor presentation|earnings call transcript|earnings call q&a|investor relations / news page)'
+    - label: press_and_news
+      pattern: '(?i)(press release|news release|newsroom|earnings release|quarterly results|official news article|annual results media release|press release /)'
+    - label: corporate_communications
+      pattern: '(?i)(official |corporate |technology |product |insight|article|blog|page|story|policy|resource|solutions|innovation|strategy|research|ethics|website|interview|claims-services|market commentary|learning-center|dx article|deal announcement)'
+  library_dictionary:
+    scikit-learn: machine_learning
+    dash: visualization
+    plotly: visualization
+    pyspark: machine_learning
+    spark: machine_learning
+    fastapi: other_tooling
+    pandas: data_analysis
+    numpy: data_analysis
+    xgboost: machine_learning
+    lightgbm: machine_learning
+    catboost: machine_learning
+    tensorflow: deep_learning
+    keras: deep_learning
+    pytorch: deep_learning
+    torch: deep_learning
+    transformers: natural_language_processing
+    spacy: natural_language_processing
+    nltk: natural_language_processing
+    pymc: probabilistic_modeling
+    cvxpy: optimization
+    ortools: optimization
+outputs:
+  clean_dir: outputs/01_clean
+  constructed_dir: outputs/02_constructed
+  agreement_dir: outputs/03_agreement
+  analysis_dir: outputs/04_analysis
