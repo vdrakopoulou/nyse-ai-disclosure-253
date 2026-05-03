@@ -3,6 +3,7 @@
 
 **Dr Veliota Drakopoulou**  
 Affiliations: (1) Higher Colleges of Technology; (2) Embry-Riddle Aeronautical University
+vdrakopoulou@gmail.com 
 
 **Zenodo archive:** [insert DOI for the 253-firm public release here].  
 
